@@ -133,6 +133,32 @@
         min-height: 1.3em;
       }
 
+      .footer-links {
+        margin-top: 1.1rem;
+        padding-top: 0.9rem;
+        border-top: 1px dashed #c8d9ef;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.55rem;
+      }
+
+      .footer-links a {
+        text-decoration: none;
+        color: #2156a5;
+        font-weight: 700;
+        border: 1px solid #c9daf5;
+        background: #f5f9ff;
+        border-radius: 999px;
+        padding: 0.45rem 0.75rem;
+        transition: transform 0.15s ease, background 0.15s ease;
+      }
+
+      .footer-links a:hover {
+        background: #e8f1ff;
+        transform: translateY(-1px);
+      }
+
       .hidden {
         display: none;
       }
@@ -178,6 +204,13 @@
       </div>
 
       <p class="status" id="status"></p>
+
+      <footer class="footer-links" aria-label="Profile links">
+        <a href="https://drive.google.com/file/d/1jrIfA04Tc70bt7rEB_vc_7QEqqOHq4_I/view?usp=sharing" target="_blank" rel="noopener noreferrer">My CV</a>
+        <a href="https://alexis-matos.webflow.io/" target="_blank" rel="noopener noreferrer">My Website</a>
+        <a href="https://www.linkedin.com/in/alexis-matos/" target="_blank" rel="noopener noreferrer">My LinkedIn</a>
+        <a href="https://github.com/alexisxz" target="_blank" rel="noopener noreferrer">My GitHub</a>
+      </footer>
     </main>
 
     <script>
