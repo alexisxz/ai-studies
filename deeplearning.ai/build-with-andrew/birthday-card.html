@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Card Writer</title>
+    <style>
+      :root {
+        --bg: #fdf6ec;
+        --card: #fffaf4;
+        --ink: #2f2a26;
+        --muted: #6b625c;
+        --primary: #e36a43;
+        --accent: #ffd36e;
+        --border: #e7d8c6;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Trebuchet MS", "Gill Sans", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% 20%, #ffe6c2 0, transparent 28%),
+          radial-gradient(circle at 90% 10%, #ffd7c7 0, transparent 22%),
+          linear-gradient(160deg, #fff6ea, #f7efe6 55%, #f4ece2);
+        min-height: 100vh;
+      }
+
+      .page {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 2rem 1.2rem 2.5rem;
+      }
+
+      .title {
+        margin: 0;
+        font-size: clamp(1.8rem, 4vw, 2.9rem);
+        letter-spacing: 0.03em;
+      }
+
+      .subtitle {
+        margin: 0.5rem 0 1.6rem;
+        color: var(--muted);
+      }
+
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 1rem;
+        box-shadow: 0 12px 24px rgba(80, 50, 20, 0.08);
+      }
+
+      .grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .field {
+        display: grid;
+        gap: 0.4rem;
+      }
+
+      .field.full {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        background: #fff;
+        border-radius: 12px;
+        padding: 0.66rem 0.74rem;
+        font: inherit;
+        color: var(--ink);
+      }
+
+      textarea {
+        min-height: 84px;
+        resize: vertical;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        margin-top: 0.9rem;
+      }
+
+      button {
+        border: 0;
+        border-radius: 12px;
+        padding: 0.7rem 0.95rem;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.15s ease,
+          opacity 0.15s ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+      }
+
+      .primary {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .secondary {
+        background: var(--accent);
+        color: #46321f;
+      }
+
+      .ghost {
+        background: #f5ece1;
+        color: #58493a;
+      }
+
+      .output {
+        margin-top: 1rem;
+        border-radius: 16px;
+        padding: 1rem;
+        background: #fff;
+        border: 1px dashed #d8c8b5;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        min-height: 160px;
+      }
+
+      .status {
+        color: var(--muted);
+        font-size: 0.9rem;
+        min-height: 1.3em;
+      }
+
+      @media (max-width: 700px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <h1 class="title">Birthday Card Writer</h1>
+      <p class="subtitle">
+        Fill a few details and get a ready-to-send birthday message.
+      </p>
+
+      <section class="panel">
+        <div class="grid form-grid">
+          <div class="field">
+            <label for="recipient">Who is this for?</label>
+            <input id="recipient" placeholder="e.g., Mom, Chris, Coach Lee" />
+          </div>
+
+          <div class="field">
+            <label for="relationship">Your relationship</label>
+            <input
+              id="relationship"
+              placeholder="e.g., friend, sibling, coworker"
+            />
+          </div>
+
+          <div class="field">
+            <label for="tone">Tone</label>
+            <select id="tone">
+              <option value="warm">Warm</option>
+              <option value="funny">Funny</option>
+              <option value="formal">Formal</option>
+              <option value="heartfelt">Heartfelt</option>
+              <option value="short">Short and simple</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="length">Length</label>
+            <select id="length">
+              <option value="short">Short (2-3 lines)</option>
+              <option value="medium" selected>Medium (4-6 lines)</option>
+              <option value="long">Long (7+ lines)</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="memory"
+              >Memory, inside joke, or details to include</label
+            >
+            <textarea
+              id="memory"
+              placeholder="e.g., our road trip, your love for gardening, your kindness this year"
+            ></textarea>
+          </div>
+
+          <div class="field full">
+            <label for="wish">Specific wish</label>
+            <input
+              id="wish"
+              placeholder="e.g., success in your new job, health and joy"
+            />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="generateBtn">Generate Message</button>
+          <button class="secondary" id="variantBtn">
+            Make Another Version
+          </button>
+          <button class="ghost" id="copyBtn">Copy to Clipboard</button>
+          <button class="ghost" id="clearBtn">Clear</button>
+        </div>
+
+        <p class="status" id="status"></p>
+        <article class="output" id="output">
+          Your birthday message will appear here.
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const recipientEl = document.getElementById("recipient");
+      const relationshipEl = document.getElementById("relationship");
+      const toneEl = document.getElementById("tone");
+      const lengthEl = document.getElementById("length");
+      const memoryEl = document.getElementById("memory");
+      const wishEl = document.getElementById("wish");
+      const outputEl = document.getElementById("output");
+      const statusEl = document.getElementById("status");
+
+      const openers = {
+        warm: [
+          "Happy Birthday",
+          "Wishing you the happiest birthday",
+          "Celebrating you today",
+        ],
+        funny: [
+          "Happy level-up day",
+          "Another year, still iconic",
+          "Birthday alert",
+        ],
+        formal: [
+          "Warm birthday wishes to you",
+          "Happy Birthday and best wishes",
+          "Many happy returns",
+        ],
+        heartfelt: [
+          "Happy Birthday to someone truly special",
+          "Today is all about you",
+          "With love on your birthday",
+        ],
+        short: [
+          "Happy Birthday",
+          "Big birthday wishes",
+          "Have an amazing birthday",
+        ],
+      };
+
+      const closers = {
+        warm: [
+          "Have a beautiful year ahead!",
+          "Enjoy every moment of your day.",
+          "You deserve the best today and always.",
+        ],
+        funny: [
+          "Cake first, adulting later.",
+          "Hope your candles need a fire permit.",
+          "Stay awesome and slightly dramatic.",
+        ],
+        formal: [
+          "Wishing you continued success and happiness.",
+          "May the coming year bring you prosperity and peace.",
+          "Best regards and warm wishes.",
+        ],
+        heartfelt: [
+          "Thank you for being such a bright part of my life.",
+          "You are deeply appreciated, today and every day.",
+          "I am lucky to know you.",
+        ],
+        short: ["Enjoy your day!", "Wishing you joy!", "Cheers to you!"],
+      };
+
+      function pick(arr, seed) {
+        return arr[Math.floor(Math.random() * arr.length + seed) % arr.length];
+      }
+
+      function buildMessage(seed = 0) {
+        const recipient = recipientEl.value.trim() || "you";
+        const relationship = relationshipEl.value.trim();
+        const tone = toneEl.value;
+        const length = lengthEl.value;
+        const memory = memoryEl.value.trim();
+        const wish = wishEl.value.trim();
+
+        const lines = [];
+        lines.push(
+          `${pick(openers[tone], seed)}${recipient === "you" ? "!" : ", " + recipient + "!"}`,
+        );
+
+        if (relationship) {
+          lines.push(`Being your ${relationship} has been such a gift.`);
+        }
+
+        if (memory) {
+          lines.push(`I keep smiling when I think about ${memory}.`);
+        } else if (tone === "funny") {
+          lines.push(
+            "Thanks for always making life more fun and less serious.",
+          );
+        } else {
+          lines.push(
+            "You bring a lot of joy and strength to the people around you.",
+          );
+        }
+
+        if (wish) {
+          lines.push(`This year, I hope you get ${wish}.`);
+        } else {
+          lines.push(
+            "I hope this year brings you good health, laughter, and meaningful wins.",
+          );
+        }
+
+        lines.push(pick(closers[tone], seed));
+
+        if (length === "short") {
+          return [
+            lines[0],
+            lines[lines.length - 2],
+            lines[lines.length - 1],
+          ].join("\n");
+        }
+
+        if (length === "long") {
+          lines.splice(
+            2,
+            0,
+            "You deserve to feel celebrated, supported, and proud of how far you have come.",
+          );
+          lines.splice(
+            4,
+            0,
+            tone === "formal"
+              ? "May your next chapter be marked by confidence and opportunity."
+              : "I hope your day is full of people, food, and moments that make you feel loved.",
+          );
+        }
+
+        return lines.join("\n");
+      }
+
+      function generate(seed = 0) {
+        outputEl.textContent = buildMessage(seed);
+        statusEl.textContent = "Message generated.";
+      }
+
+      document
+        .getElementById("generateBtn")
+        .addEventListener("click", () => generate());
+      document
+        .getElementById("variantBtn")
+        .addEventListener("click", () =>
+          generate(Math.floor(Math.random() * 5) + 1),
+        );
+
+      document.getElementById("copyBtn").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(outputEl.textContent);
+          statusEl.textContent = "Copied to clipboard.";
+        } catch (err) {
+          statusEl.textContent =
+            "Could not copy automatically. Please copy manually.";
+        }
+      });
+
+      document.getElementById("clearBtn").addEventListener("click", () => {
+        recipientEl.value = "";
+        relationshipEl.value = "";
+        toneEl.value = "warm";
+        lengthEl.value = "medium";
+        memoryEl.value = "";
+        wishEl.value = "";
+        outputEl.textContent = "Your birthday message will appear here.";
+        statusEl.textContent = "Form cleared.";
+      });
+
+      generate();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Table Tennis: You vs Computer</title>
+    <style>
+      :root {
+        --bg-top: #e8f4ee;
+        --bg-bottom: #bfdccc;
+        --table: #1d9a61;
+        --table-edge: #146544;
+        --line: #e9fffb;
+        --player: #e8d7b7;
+        --ai: #e8d7b7;
+        --ball: #ffffff;
+        --ink: #163238;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Verdana", "Trebuchet MS", sans-serif;
+        color: var(--ink);
+        background:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffffff' stop-opacity='0.15'/%3E%3Cstop offset='1' stop-color='%23ffffff' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='180' cy='160' r='150' fill='url(%23g)'/%3E%3Ccircle cx='1410' cy='140' r='190' fill='url(%23g)'/%3E%3Ccircle cx='1320' cy='760' r='220' fill='url(%23g)'/%3E%3Crect x='320' y='620' width='920' height='100' rx='50' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E"),
+          radial-gradient(circle at 16% 12%, #ffffffa8 0 10%, transparent 30%),
+          radial-gradient(circle at 84% 9%, #ffffff99 0 8%, transparent 28%),
+          linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+        background-size: cover, auto, auto, auto;
+        background-position: center, 0 0, 0 0, 0 0;
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+      }
+
+      .shell {
+        width: min(960px, 100%);
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.75rem;
+        align-items: center;
+        margin-bottom: 0.7rem;
+      }
+
+      .badge {
+        background: #ffffffd7;
+        border: 1px solid #b8dce3;
+        border-radius: 12px;
+        padding: 0.45rem 0.7rem;
+        font-weight: 700;
+      }
+
+      .hint {
+        font-size: 0.92rem;
+        color: #2f535a;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        background: #ffffffd7;
+        border: 1px solid #b8dce3;
+        border-radius: 12px;
+        padding: 0.35rem 0.6rem;
+      }
+
+      .controls label {
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .controls select {
+        border: 1px solid #95c3cb;
+        border-radius: 8px;
+        padding: 0.28rem 0.4rem;
+        font: inherit;
+        background: #fbffff;
+        color: #163238;
+      }
+
+      #game {
+        width: min(960px, 100%);
+        aspect-ratio: 16 / 9;
+        background:
+          repeating-linear-gradient(
+            -18deg,
+            rgba(255, 255, 255, 0.055) 0 10px,
+            rgba(255, 255, 255, 0.015) 10px 20px
+          ),
+          linear-gradient(145deg, var(--table), #178e5a 58%, #0f7447);
+        border-radius: 22px;
+        border: 5px solid var(--table-edge);
+        box-shadow: 0 18px 34px rgba(10, 36, 32, 0.28);
+        display: block;
+      }
+
+      .mobile-controls {
+        margin-top: 0.8rem;
+        display: none;
+        gap: 0.65rem;
+      }
+
+      .mobile-controls button {
+        border: 1px solid #9fcdd5;
+        border-radius: 12px;
+        background: #f8ffff;
+        padding: 0.6rem 0.9rem;
+        font-weight: 700;
+        color: #1d474f;
+      }
+
+      @media (max-width: 700px) {
+        .topbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .mobile-controls {
+          display: flex;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar">
+        <div class="badge" id="scoreboard">You 0 : 0 Computer</div>
+        <div class="controls">
+          <label for="difficulty">Difficulty</label>
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+            <option value="impossivel">Impossivel</option>
+          </select>
+        </div>
+        <div class="hint" id="hint">Use Arrow Up / Arrow Down to move. First to 7 wins.</div>
+      </section>
+      <canvas id="game" width="960" height="540" aria-label="Table tennis game"></canvas>
+      <section class="mobile-controls" aria-hidden="true">
+        <button id="upBtn">Move Up</button>
+        <button id="downBtn">Move Down</button>
+      </section>
+    </main>
+
+    <script>
+      const canvas = document.getElementById("game");
+      const ctx = canvas.getContext("2d");
+      const scoreboard = document.getElementById("scoreboard");
+      const hint = document.getElementById("hint");
+      const difficultyEl = document.getElementById("difficulty");
+      const PADDLE_COLOR = "#e8d7b7";
+      const BALL_COLOR = "#ffffff";
+
+      const W = canvas.width;
+      const H = canvas.height;
+      const WIN_SCORE = 7;
+
+      const paddle = {
+        w: 14,
+        h: 104,
+        speed: 7,
+      };
+
+      const player = {
+        x: 28,
+        y: H / 2 - paddle.h / 2,
+        vy: 0,
+        score: 0,
+      };
+
+      const ai = {
+        x: W - 28 - paddle.w,
+        y: H / 2 - paddle.h / 2,
+        score: 0,
+      };
+
+      const ball = {
+        x: W / 2,
+        y: H / 2,
+        r: 9,
+        vx: 5,
+        vy: 2.2,
+        maxSpeed: 10,
+      };
+
+      const input = {
+        up: false,
+        down: false,
+      };
+
+      let gameOver = false;
+      let winner = "";
+      let difficulty = "medium";
+
+      const difficultySettings = {
+        easy: {
+          aiReaction: 3.1,
+          aiOffset: 20,
+          ballBase: 4.2,
+          ballVariance: 1.2,
+          ballMax: 8.6,
+        },
+        medium: {
+          aiReaction: 4.2,
+          aiOffset: 8,
+          ballBase: 4.7,
+          ballVariance: 1.6,
+          ballMax: 10,
+        },
+        hard: {
+          aiReaction: 5.5,
+          aiOffset: 2,
+          ballBase: 5.3,
+          ballVariance: 2.0,
+          ballMax: 11.8,
+        },
+        impossivel: {
+          aiReaction: 7.4,
+          aiOffset: 0,
+          ballBase: 6.4,
+          ballVariance: 2.6,
+          ballMax: 14.2,
+        },
+      };
+
+      function currentSettings() {
+        return difficultySettings[difficulty];
+      }
+
+      function resetBall(direction = 1) {
+        const settings = currentSettings();
+        ball.x = W / 2;
+        ball.y = H / 2;
+        ball.maxSpeed = settings.ballMax;
+        ball.vx = (settings.ballBase + Math.random() * settings.ballVariance) * direction;
+        ball.vy = (Math.random() * 4 - 2) || 1.2;
+      }
+
+      function resetGame() {
+        player.score = 0;
+        ai.score = 0;
+        player.y = H / 2 - paddle.h / 2;
+        ai.y = H / 2 - paddle.h / 2;
+        gameOver = false;
+        winner = "";
+        resetBall(Math.random() < 0.5 ? -1 : 1);
+        hint.textContent = `Use Arrow Up / Arrow Down to move. First to 7 wins. Difficulty: ${difficulty}.`;
+        updateScore();
+      }
+
+      function clampPaddles() {
+        if (player.y < 0) player.y = 0;
+        if (player.y + paddle.h > H) player.y = H - paddle.h;
+        if (ai.y < 0) ai.y = 0;
+        if (ai.y + paddle.h > H) ai.y = H - paddle.h;
+      }
+
+      function updatePlayer() {
+        if (input.up) player.vy = -paddle.speed;
+        else if (input.down) player.vy = paddle.speed;
+        else player.vy = 0;
+
+        player.y += player.vy;
+      }
+
+      function updateAi() {
+        const settings = currentSettings();
+        const target = ball.y - paddle.h / 2;
+        const reaction = settings.aiReaction;
+        const offset = settings.aiOffset;
+        if (ai.y < target - offset) ai.y += reaction;
+        if (ai.y > target + offset) ai.y -= reaction;
+      }
+
+      function bounceFromPaddle(padX, padY, isPlayer) {
+        const withinY = ball.y + ball.r >= padY && ball.y - ball.r <= padY + paddle.h;
+        const withinX = isPlayer
+          ? ball.x - ball.r <= padX + paddle.w && ball.x > padX
+          : ball.x + ball.r >= padX && ball.x < padX + paddle.w;
+
+        if (!withinY || !withinX) return;
+
+        const hitPos = (ball.y - (padY + paddle.h / 2)) / (paddle.h / 2);
+        const angle = hitPos * (Math.PI / 3.5);
+        const speed = Math.min(ball.maxSpeed, Math.hypot(ball.vx, ball.vy) + 0.42);
+        const direction = isPlayer ? 1 : -1;
+
+        ball.vx = speed * Math.cos(angle) * direction;
+        ball.vy = speed * Math.sin(angle);
+
+        if (isPlayer) ball.x = padX + paddle.w + ball.r;
+        else ball.x = padX - ball.r;
+      }
+
+      function scorePoint(scoredByPlayer) {
+        if (scoredByPlayer) player.score += 1;
+        else ai.score += 1;
+
+        updateScore();
+
+        if (player.score >= WIN_SCORE || ai.score >= WIN_SCORE) {
+          gameOver = true;
+          winner = player.score > ai.score ? "You win" : "Computer wins";
+          hint.textContent = `${winner}. Press Space to restart.`;
+          return;
+        }
+
+        resetBall(scoredByPlayer ? -1 : 1);
+      }
+
+      function updateBall() {
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+
+        if (ball.y - ball.r <= 0) {
+          ball.y = ball.r;
+          ball.vy *= -1;
+        }
+
+        if (ball.y + ball.r >= H) {
+          ball.y = H - ball.r;
+          ball.vy *= -1;
+        }
+
+        bounceFromPaddle(player.x, player.y, true);
+        bounceFromPaddle(ai.x, ai.y, false);
+
+        if (ball.x < -30) scorePoint(false);
+        if (ball.x > W + 30) scorePoint(true);
+      }
+
+      function updateScore() {
+        scoreboard.textContent = `You ${player.score} : ${ai.score} Computer`;
+      }
+
+      function drawNet() {
+        ctx.strokeStyle = "#dffef7";
+        ctx.lineWidth = 4;
+        ctx.setLineDash([13, 18]);
+        ctx.beginPath();
+        ctx.moveTo(W / 2, 0);
+        ctx.lineTo(W / 2, H);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      function drawPaddle(x, y, color) {
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, paddle.w, paddle.h);
+      }
+
+      function drawBall() {
+        ctx.beginPath();
+        ctx.fillStyle = BALL_COLOR;
+        ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function drawCenterText(text, y, size = 44) {
+        ctx.fillStyle = "#ffffff";
+        ctx.font = `700 ${size}px Verdana`;
+        ctx.textAlign = "center";
+        ctx.fillText(text, W / 2, y);
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        drawNet();
+        drawPaddle(player.x, player.y, PADDLE_COLOR);
+        drawPaddle(ai.x, ai.y, PADDLE_COLOR);
+        drawBall();
+
+        if (gameOver) {
+          ctx.fillStyle = "rgba(0, 0, 0, 0.38)";
+          ctx.fillRect(0, 0, W, H);
+          drawCenterText(winner, H / 2 - 16);
+          drawCenterText("Press Space to play again", H / 2 + 42, 26);
+        }
+      }
+
+      function tick() {
+        if (!gameOver) {
+          updatePlayer();
+          updateAi();
+          clampPaddles();
+          updateBall();
+        }
+
+        draw();
+        requestAnimationFrame(tick);
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowUp") {
+          input.up = true;
+          e.preventDefault();
+        }
+        if (e.key === "ArrowDown") {
+          input.down = true;
+          e.preventDefault();
+        }
+        if (e.code === "Space" && gameOver) {
+          resetGame();
+        }
+      });
+
+      document.addEventListener("keyup", (e) => {
+        if (e.key === "ArrowUp") input.up = false;
+        if (e.key === "ArrowDown") input.down = false;
+      });
+
+      const upBtn = document.getElementById("upBtn");
+      const downBtn = document.getElementById("downBtn");
+
+      function bindHoldButton(button, key) {
+        const down = () => (input[key] = true);
+        const up = () => (input[key] = false);
+
+        button.addEventListener("touchstart", down, { passive: true });
+        button.addEventListener("touchend", up, { passive: true });
+        button.addEventListener("mousedown", down);
+        button.addEventListener("mouseup", up);
+        button.addEventListener("mouseleave", up);
+      }
+
+      bindHoldButton(upBtn, "up");
+      bindHoldButton(downBtn, "down");
+
+      difficultyEl.addEventListener("change", () => {
+        difficulty = difficultyEl.value;
+        resetGame();
+      });
+
+      resetGame();
+      tick();
+    </script>
+  </body>
+</html>

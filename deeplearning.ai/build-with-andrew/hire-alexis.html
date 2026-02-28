@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hire Alexis Challenge</title>
+    <style>
+      :root {
+        --bg: #f6fbff;
+        --ink: #1e2431;
+        --card: #ffffff;
+        --line: #d5e2f2;
+        --yes: #3d8bff;
+        --no: #ff7a7a;
+        --gold: #ffe8a9;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Cdefs%3E%3CradialGradient id='a' cx='50%25' cy='50%25' r='70%25'%3E%3Cstop offset='0' stop-color='%23ffffff' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%23ffffff' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='160' cy='150' r='170' fill='url(%23a)'/%3E%3Ccircle cx='1420' cy='180' r='230' fill='url(%23a)'/%3E%3Ccircle cx='1220' cy='840' r='220' fill='url(%23a)'/%3E%3Cg fill='%233d8bff' fill-opacity='0.12'%3E%3Ccircle cx='300' cy='790' r='12'/%3E%3Ccircle cx='420' cy='880' r='9'/%3E%3Ccircle cx='1320' cy='300' r='14'/%3E%3Ccircle cx='1180' cy='180' r='8'/%3E%3Ccircle cx='980' cy='780' r='10'/%3E%3C/g%3E%3C/svg%3E"),
+          linear-gradient(135deg, #deedff, #edf8ff 40%, #fef7e8 85%);
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+      }
+
+      .wrap {
+        width: min(860px, 100%);
+        background: linear-gradient(170deg, #ffffff, #f9fcff);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 1.2rem;
+        box-shadow: 0 20px 50px rgba(39, 71, 122, 0.15);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(1.5rem, 3.8vw, 2.6rem);
+      }
+
+      .subtitle {
+        margin: 0.45rem 0 1rem;
+        color: #4b5f7e;
+      }
+
+      .meter {
+        height: 12px;
+        background: #e8f0fb;
+        border-radius: 99px;
+        overflow: hidden;
+        border: 1px solid #d8e5f7;
+      }
+
+      .meter-fill {
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, #8ab6ff, #3d8bff);
+        transition: width 0.35s ease;
+      }
+
+      .fact-card {
+        margin-top: 1rem;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 1rem;
+        min-height: 125px;
+      }
+
+      .kicker {
+        display: inline-block;
+        padding: 0.2rem 0.55rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        background: var(--gold);
+        border: 1px solid #f0d98d;
+        color: #654e14;
+      }
+
+      .fact {
+        margin: 0.65rem 0 0;
+        line-height: 1.5;
+        font-size: clamp(1rem, 2.2vw, 1.25rem);
+      }
+
+      .controls {
+        margin-top: 1rem;
+        display: flex;
+        gap: 0.9rem;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
+
+      button {
+        border: 0;
+        border-radius: 14px;
+        padding: 0.85rem 1.15rem;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+        transition: transform 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
+      }
+
+      button:hover {
+        filter: brightness(1.03);
+      }
+
+      #noBtn {
+        background: linear-gradient(135deg, #ffa1a1, var(--no));
+        color: #511313;
+      }
+
+      #yesBtn {
+        background: linear-gradient(135deg, #7cb0ff, var(--yes));
+        color: #f7fbff;
+        box-shadow: 0 12px 24px rgba(61, 139, 255, 0.35);
+      }
+
+      .status {
+        margin-top: 0.75rem;
+        font-size: 0.96rem;
+        color: #395078;
+        min-height: 1.3em;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .victory {
+        animation: pulse 0.8s ease infinite alternate;
+      }
+
+      @keyframes pulse {
+        from {
+          transform: scale(1.6);
+        }
+        to {
+          transform: scale(1.72);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .controls {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>The "Hire Alexis" Button Survival Test</h1>
+      <p class="subtitle">Spoiler: this page is aggressively pro Full-Stack Developer.</p>
+
+      <div class="meter" aria-label="Fact progress">
+        <div class="meter-fill" id="meterFill"></div>
+      </div>
+
+      <section class="fact-card">
+        <span class="kicker" id="kicker">Fact 1</span>
+        <p class="fact" id="factText"></p>
+      </section>
+
+      <div class="controls">
+        <button id="noBtn">not good enough</button>
+        <button id="yesBtn">i want to hire you</button>
+      </div>
+
+      <p class="status" id="status"></p>
+    </main>
+
+    <script>
+      const facts = [
+        "Silly fact: he loves cats, and cats usually approve his code reviews.",
+        "Silly fact: he is health-focused and goes to the gym almost every day.",
+        "Silly fact: he is married and still commits to production with love and discipline.",
+        "8+ years building across web development, automation, data, and IT systems.",
+        "Multilingual: Portuguese (native), English (fluent), German (B2), Italian (B2), Spanish (B1).",
+        "Built and maintained 20+ high-conversion websites and landing pages with strong frontend execution.",
+        "Currently Head of Web Development at Stirner, shipping scalable products and automations end-to-end.",
+        "At Stirner, also handling IT management: Microsoft 365, Azure AD, ABM/MDM, device rollout, and secure daily operations.",
+        "Full-stack first: React, Next.js, TypeScript, Node.js, Prisma, PostgreSQL, MongoDB, Firebase, Supabase.",
+        "Connects the full stack in real life: APIs, CRMs, payments, forms, email flows, and backend logic.",
+        "Built Python RPA bots (Selenium, PyAutoGUI, Pandas) for real operational workflows.",
+        "Designed automations that reduced manual operations by up to 60% for clients.",
+        "AI + full-stack builder: shipped AI-powered automation and ATS workflow projects with LLM integrations.",
+      ];
+
+      const factText = document.getElementById("factText");
+      const kicker = document.getElementById("kicker");
+      const status = document.getElementById("status");
+      const noBtn = document.getElementById("noBtn");
+      const yesBtn = document.getElementById("yesBtn");
+      const meterFill = document.getElementById("meterFill");
+
+      let factIndex = 0;
+      let yesScale = 1;
+      let noScale = 1;
+      const YES_MIN = 1;
+      const YES_MAX = 1.66;
+      const NO_MIN = 0.58;
+      const NO_MAX = 1;
+
+      function syncButtonScaleWithProgress() {
+        const maxSteps = Math.max(1, facts.length - 1);
+        const progress = factIndex / maxSteps;
+        yesScale = YES_MIN + (YES_MAX - YES_MIN) * progress;
+        noScale = NO_MAX - (NO_MAX - NO_MIN) * progress;
+      }
+
+      function updateView() {
+        factText.textContent = facts[factIndex];
+        kicker.textContent = `Fact ${factIndex + 1} of ${facts.length}`;
+        meterFill.style.width = `${((factIndex + 1) / facts.length) * 100}%`;
+
+        yesBtn.style.transform = `scale(${yesScale})`;
+        noBtn.style.transform = `scale(${noScale})`;
+      }
+
+      function enterFinalMode() {
+        noBtn.classList.add("hidden");
+        yesScale = 1.66;
+        yesBtn.classList.add("victory");
+        yesBtn.style.transform = `scale(${yesScale})`;
+        status.textContent = "The 'not good enough' button rage-quit. Full-stack energy wins.";
+      }
+
+      noBtn.addEventListener("click", () => {
+        if (factIndex < facts.length - 1) {
+          factIndex += 1;
+          syncButtonScaleWithProgress();
+          status.textContent = "Bold move. Anyway, here is another reason to hire Alexis.";
+        }
+
+        updateView();
+
+        if (factIndex === facts.length - 1) {
+          enterFinalMode();
+        }
+      });
+
+      yesBtn.addEventListener("click", () => {
+        const subject = encodeURIComponent("You survived the CV challenge. Let's build something amazing!");
+        const body = encodeURIComponent(
+          "Hi Alexis,%0D%0A%0D%0AI clicked the 'i want to hire you' button and I stand by it.%0D%0A%0D%0ALet's talk soon."
+        );
+        window.location.href = `mailto:alexisxzinho@hotmail.com?subject=${subject}&body=${body}`;
+      });
+
+      updateView();
+    </script>
+  </body>
+</html>
