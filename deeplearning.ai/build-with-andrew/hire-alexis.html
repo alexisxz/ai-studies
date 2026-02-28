@@ -108,7 +108,10 @@
         font: inherit;
         font-weight: 800;
         cursor: pointer;
-        transition: transform 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          opacity 0.2s ease,
+          filter 0.2s ease;
       }
 
       button:hover {
@@ -151,7 +154,9 @@
         background: #f5f9ff;
         border-radius: 999px;
         padding: 0.45rem 0.75rem;
-        transition: transform 0.15s ease, background 0.15s ease;
+        transition:
+          transform 0.15s ease,
+          background 0.15s ease;
       }
 
       .footer-links a:hover {
@@ -187,7 +192,9 @@
   <body>
     <main class="wrap">
       <h1>The "Hire Alexis" Button Survival Test</h1>
-      <p class="subtitle">Spoiler: this page is aggressively pro Full-Stack Developer.</p>
+      <p class="subtitle">
+        Spoiler: this page is aggressively pro Full-Stack Developer.
+      </p>
 
       <div class="meter" aria-label="Fact progress">
         <div class="meter-fill" id="meterFill"></div>
@@ -206,10 +213,30 @@
       <p class="status" id="status"></p>
 
       <footer class="footer-links" aria-label="Profile links">
-        <a href="https://drive.google.com/file/d/1jrIfA04Tc70bt7rEB_vc_7QEqqOHq4_I/view?usp=sharing" target="_blank" rel="noopener noreferrer">My CV</a>
-        <a href="https://alexis-matos.webflow.io/" target="_blank" rel="noopener noreferrer">My Website</a>
-        <a href="https://www.linkedin.com/in/alexis-matos/" target="_blank" rel="noopener noreferrer">My LinkedIn</a>
-        <a href="https://github.com/alexisxz" target="_blank" rel="noopener noreferrer">My GitHub</a>
+        <a
+          href="https://drive.google.com/file/d/1jrIfA04Tc70bt7rEB_vc_7QEqqOHq4_I/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          >My CV</a
+        >
+        <a
+          href="https://alexis-matos.webflow.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >My Website</a
+        >
+        <a
+          href="https://www.linkedin.com/in/alexis-matos/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >My LinkedIn</a
+        >
+        <a
+          href="https://github.com/alexisxz"
+          target="_blank"
+          rel="noopener noreferrer"
+          >My GitHub</a
+        >
       </footer>
     </main>
 
@@ -266,14 +293,16 @@
         yesScale = 1.66;
         yesBtn.classList.add("victory");
         yesBtn.style.transform = `scale(${yesScale})`;
-        status.textContent = "The 'not good enough' button rage-quit. Full-stack energy wins.";
+        status.textContent =
+          "The 'not good enough' button rage-quit. Full-stack energy wins.";
       }
 
       noBtn.addEventListener("click", () => {
         if (factIndex < facts.length - 1) {
           factIndex += 1;
           syncButtonScaleWithProgress();
-          status.textContent = "Bold move. Anyway, here is another reason to hire Alexis.";
+          status.textContent =
+            "Bold move. Anyway, here is another reason to hire Alexis.";
         }
 
         updateView();
@@ -284,9 +313,11 @@
       });
 
       yesBtn.addEventListener("click", () => {
-        const subject = encodeURIComponent("You survived the CV challenge. Let's build something amazing!");
+        const subject = encodeURIComponent(
+          "You survived the CV challenge. Let's build something amazing!",
+        );
         const body = encodeURIComponent(
-          "Hi Alexis,%0D%0A%0D%0AI clicked the 'i want to hire you' button and I stand by it.%0D%0A%0D%0ALet's talk soon."
+          "Hi Alexis, I clicked the 'i want to hire you' button and I stand by it.Let's talk soon.",
         );
         window.location.href = `mailto:alexisxzinho@hotmail.com?subject=${subject}&body=${body}`;
       });
