@@ -76,3 +76,22 @@ Machine learning is not good for:
 - Situations where the environment changes too quickly and past data becomes irrelevant
 
 Rule of thumb: ML does not "see the future" by magic. It learns patterns from the past and applies them to similar new cases.
+
+## An explanation of deep learning
+Deep learning is a method in machine learning that uses neural networks with many
+layers to learn complex patterns automatically.
+
+Image example:
+- A `1000 x 1000` grayscale image has `1,000,000` pixel values.
+- A `1000 x 1000` RGB image has `3,000,000` values (red, green, and blue channels).
+
+During training, the model receives:
+- Input (`A`): the image
+- Output (`B`): the correct label (for example, "cat" or "dog")
+
+How learning happens across layers:
+- Early layers learn simple features (edges, lines, curves)
+- Middle layers combine them into parts (eyes, nose, ears)
+- Deeper layers combine parts into higher-level shapes and full objects
+
+After training, the network can take a new image and predict the most likely output label.
