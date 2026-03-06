@@ -197,3 +197,46 @@ How to choose:
 - Choose cloud when speed of deployment and scalability matter most.
 - Choose on-premises when regulation/security requires tight infrastructure control.
 - Choose edge when real-time response or offline reliability is critical.
+
+## Building AI in your company
+
+### Case studies
+
+#### AI Speaker
+Steps to process the command:
+1. Trigger word/wakeword detection: "Hey device"
+2. Speech recognition
+3. Intent recognition
+4. Execution
+
+This will find a function that it is already crated in the device and in the step 3 it will detect which function should run.
+
+#### Self-driving car
+Steps for deciding how to drive:
+1. Image/Radar/Lider
+   1. Car detection
+   2. Pedestrian detection
+2. Motion Planning
+   1. Steer/Accelerate/Brake
+
+### Example roles of an AI team
+- Software Engineer
+- Machine Learning Engineer
+- Machine Learning Researcher
+- Data Scientist
+- Data Engineer
+- ~~AI Product Manager~~
+
+Getting started with a small team
+- 1 Software Engineer, or
+- 1 Machine Learning Engineer/Data Scientist, or
+- Nobody but yourself
+
+### AI Transformation Playbook
+1. Execute pilot projects to gain momentum
+2. Build an in-house AI team
+3. Provide broad AI traning
+4. Develop an AI strategy
+5. Develop internal and external communications
+
+
