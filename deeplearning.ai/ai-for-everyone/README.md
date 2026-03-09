@@ -225,7 +225,7 @@ Steps for deciding how to drive:
 - Machine Learning Researcher
 - Data Scientist
 - Data Engineer
-- ~~AI Product Manager~~
+- AI Product Manager
 
 Getting started with a small team
 - 1 Software Engineer, or
@@ -239,4 +239,53 @@ Getting started with a small team
 4. Develop an AI strategy
 5. Develop internal and external communications
 
+### Survey of major AI applications areas
 
+#### Computer Vision
+- Image classification/Object recognition, E.x. Face recognition
+- Object detection
+- Image segmentation
+- Tracking
+
+#### Natural Language Processing
+- Text classification
+- Information retrieval
+- Name entity recognition
+
+#### Speech
+- Speech recognition (speech-to-text)
+- Trigger word/wakeword detection
+- Speaker ID
+- Speech synthesis (text-to-speech, TTS)
+
+#### Generative AI
+Artificial intelligence systems that can product high quality content, specifically text, images, and audio.
+- Text generation
+- Image generation
+- Audio generation
+
+#### Robotics
+- Perception: figuring out what is in the world around you
+- Motion planning: finding a path for the robot to follow
+- Control: sending commands to the motors to follow a path
+
+#### General machine learning
+- Unstructured data (images, audio, text)
+- Structured data
+
+### Survez of major AI techniques
+
+#### Unsurpervised learning
+Given data (without any specific desired output labels), find something interesting about the data
+
+#### Transfer learning
+Learn from task `A`, and use knwledge to help on task B of another kind of learning
+
+#### Reinforcemente learning
+Use a "reward signal" to tell the AI when it is doing well or poorly. It automatically learns to maximize its rewards. Very good for gaming for example
+
+#### GANs (Generative Adversarial Network)
+Synthesize new content from scratch
+
+#### Knowledge Graph
+A way to give the data in different aspect to have different outputs
