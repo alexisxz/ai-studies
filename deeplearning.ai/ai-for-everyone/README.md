@@ -239,30 +239,33 @@ Getting started with a small team
 4. Develop an AI strategy
 5. Develop internal and external communications
 
-### Survey of major AI applications areas
+### Survey of major AI application areas
 
 #### Computer Vision
-- Image classification/Object recognition, E.x. Face recognition
+- Image classification and object recognition (e.g., face recognition)
 - Object detection
 - Image segmentation
-- Tracking
+- Object tracking
 
 #### Natural Language Processing
 - Text classification
 - Information retrieval
-- Name entity recognition
+- Named entity recognition (NER)
+- Machine translation
+- Question answering and summarization
 
 #### Speech
 - Speech recognition (speech-to-text)
 - Trigger word/wakeword detection
-- Speaker ID
+- Speaker identification
 - Speech synthesis (text-to-speech, TTS)
 
 #### Generative AI
-Artificial intelligence systems that can product high quality content, specifically text, images, and audio.
+Artificial intelligence systems that can produce high-quality content, such as text, images, and audio.
 - Text generation
 - Image generation
 - Audio generation
+- Code generation
 
 #### Robotics
 - Perception: figuring out what is in the world around you
@@ -270,22 +273,34 @@ Artificial intelligence systems that can product high quality content, specifica
 - Control: sending commands to the motors to follow a path
 
 #### General machine learning
-- Unstructured data (images, audio, text)
-- Structured data
+- Structured data tasks (fraud detection, churn prediction, demand forecasting)
+- Unstructured data tasks (images, audio, text)
 
-### Survez of major AI techniques
+### Survey of major AI techniques
 
-#### Unsurpervised learning
-Given data (without any specific desired output labels), find something interesting about the data
+#### Supervised learning
+Learn from labeled examples (`A -> B`) to make predictions for new data.
+Examples: spam detection, price prediction, medical image classification.
+
+#### Unsupervised learning
+Given unlabeled data, find useful structure or patterns.
+Examples: clustering customers, anomaly detection, dimensionality reduction.
 
 #### Transfer learning
-Learn from task `A`, and use knwledge to help on task B of another kind of learning
+Reuse knowledge from one task or model to improve performance on another task,
+often with less data and training time.
 
-#### Reinforcemente learning
-Use a "reward signal" to tell the AI when it is doing well or poorly. It automatically learns to maximize its rewards. Very good for gaming for example
+#### Reinforcement learning
+Learn through trial and error using rewards and penalties.
+Useful for control problems, robotics, and game-playing agents.
 
-#### GANs (Generative Adversarial Network)
-Synthesize new content from scratch
+#### Deep learning
+Use multi-layer neural networks to model complex patterns, especially in vision,
+speech, and natural language tasks.
 
-#### Knowledge Graph
-A way to give the data in different aspect to have different outputs
+#### Generative models (e.g., GANs, diffusion models)
+Generate new content from learned data distributions (images, audio, text).
+
+#### Knowledge graphs
+Represent entities and their relationships in graph form to support reasoning,
+search, recommendation, and question answering.
