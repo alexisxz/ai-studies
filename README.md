@@ -11,7 +11,7 @@ Central index for this repository. Use this file to quickly find the most import
 ## Where to find key information
 
 ### 1) AI concepts and strategy
-Go to [deeplearning.ai/ai-for-everyone/README.md]
+Go to [deeplearning.ai/ai-for-everyone/README.md](deeplearning.ai/ai-for-everyone/README.md)
 
 Key sections:
 - `### AI types` for ANI vs Generative AI vs AGI
@@ -21,14 +21,17 @@ Key sections:
 - `## Building AI Project` for project execution guidance
 - `### Training set vs. test set` for dataset splitting basics
 - `### CPU vs. GPU` and `### Cloud vs. On-premises vs. Edge` for infrastructure choices
+- `## Building AI in your company` for org design, case studies, and transformation
+- `### Survey of major AI application areas` and `### Survey of major AI techniques` for a broad landscape view
+- `### AI and Society` for bias, adversarial attacks, jobs, and policy-oriented topics
 
 ### 2) Build practice projects
-Go to [deeplearning.ai/build-with-andrew/README.md]
+Go to [deeplearning.ai/build-with-andrew/README.md](deeplearning.ai/build-with-andrew/README.md)
 
 Main files:
-- [birthday-card.html]: birthday card generator UI
-- [hire-alexis.html]: interactive challenge page
-- [table-tennis.html]: browser game (you vs computer)
+- [birthday-card.html](deeplearning.ai/build-with-andrew/birthday-card.html): birthday card generator UI
+- [hire-alexis.html](deeplearning.ai/build-with-andrew/hire-alexis.html): interactive challenge page
+- [table-tennis.html](deeplearning.ai/build-with-andrew/table-tennis.html): browser game (you vs computer)
 
 ## Suggested learning path
 1. Read `ai-for-everyone/README.md` from top to bottom.
