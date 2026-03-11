@@ -1,4 +1,5 @@
 # AI for everyone
+https://learn.deeplearning.ai/courses/ai-for-everyone
 
 ## Introduction
 
@@ -304,3 +305,45 @@ Generate new content from learned data distributions (images, audio, text).
 #### Knowledge graphs
 Represent entities and their relationships in graph form to support reasoning,
 search, recommendation, and question answering.
+
+### AI and Society
+
+#### A realistic view of AI
+Ai will not surpass the humans and kill us and AI wil be bring the heaven transformation
+
+#### Discrimination / Bias
+Combating bias:
+- Technical solutions:
+  - E.G., "zero out" the bias in words
+  - Use less biased and/or more inclusive data
+- Transparency and/or auditing processes
+- Diverse workfoce
+  - Creates less biased applications
+
+#### Adversarial attack on AI
+malicious, input-manipulation techniques that introduce small, often invisible, modifications to data (adversarial examples) to trick machine learning models into making incorrect, dangerous, or unauthorized predictions
+
+Adversarial defenses:
+- Defenses do exist, but incur some cost
+- Similar to spam vs. anti-spam, we may be in an armas race for some applications
+
+#### Adverse uses of AI
+- DeepFakes
+  - Synthesize video of people doing things they never did
+- Undermining of democracy and privacy
+  - Oppressive surveillance
+- Generating fake comments
+-  Spam vs. anti-spam and fraud vs. anti-fraud
+-  
+
+#### AI and developing economies
+How developing economies can build AI
+- The US, China, UK, Canada, and many others have vibrant AI communities. But all countries still have a lof of development ahead
+- Focus on AI to strengthen a country's vertical industries
+- Public-private partnership to accelerate development
+
+#### AI and jobs
+
+AI's impact on jbs worldwide
+- Jobs displaced by 2030: 400-800mil
+- Jobs created by 2030: 555-890mil
