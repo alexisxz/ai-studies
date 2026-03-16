@@ -97,3 +97,25 @@ Limitations:
 - Prompt wording strongly affects quality
 - The model may generate visual mistakes or unrealistic details
 - Results can be biased by the training data
+
+## Generative AI Projects
+
+### Lifecycle of a generative AI project
+1. Scope project
+2. Build System
+3. Internal evaluation
+4. Improve System
+5. Deploy and monitor
+
+### Retrieval Augmented Generation (RAG)
+It is a technic to give your AI more information based on 3 steps:
+1. Given question, search relevant documents for answer
+2. Incorporate retrieved text into an updated prompt
+3. Generate answer from the new prompt with additional context
+
+### Reinforcement learning from human feedback (RLHF)
+Helpful, Honest, Harmless
+
+Steps:
+1. Train an answer quality (reward) model
+2. Have LLM generate a lot of answers. Further train it to generate more responses that get high scores.
