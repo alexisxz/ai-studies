@@ -119,3 +119,32 @@ Helpful, Honest, Harmless
 Steps:
 1. Train an answer quality (reward) model
 2. Have LLM generate a lot of answers. Further train it to generate more responses that get high scores.
+
+## Generative AI in Business and Society
+
+### Augmentation vs. Automation
+Augmentation:
+- Help humans with a task
+- E.g., recommend a response for a customer service agent to edit/approva.
+
+Automation:
+- Automatically perform a task
+- E.g., automatically transcribe and summarize records of costumers interactions
+
+## Generative AI and society
+
+### Artificial General Intelligence (AGI)
+Definition: AI that can do any intellectual task that a human can
+
+Examples:
+- Learn to drive a car through +/-20 hours of practice
+- Complete a PhD thesis after +/-5 years of work
+- Do all the tasks of a computer programmer (or any other knowledge worker)
+
+### Responsible AI
+Dimensions of responsible AI
+- Fariness: Ensuring AI does not perpetuate or amplify biases
+- Transparency: Making AI systems and their decisions understandable to stakeholders impacted
+- Privacy: Protecting user data and ensure confidentiality
+- Security: Safeguard AI systems from malicious attacks
+- Ethical Use: Ensuring AI is used for beneficial purposes
