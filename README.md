@@ -9,6 +9,8 @@ Central index for this repository. Use this file to quickly find the most import
   Notes about generative AI concepts, LLM usage, project lifecycle, and business impact.
 - `deeplearning.ai/build-with-andrew/`
   Hands-on HTML/CSS/JS mini-projects and prompting notes.
+- `deeplearning.ai/claude-code/`
+  Notes on Claude Code as an agentic coding assistant: capabilities, CLAUDE.md, hooks, slash commands, and best practices.
 
 ## Where to find key information
 
@@ -35,7 +37,20 @@ Main files:
 - [hire-alexis.html](deeplearning.ai/build-with-andrew/hire-alexis.html): interactive challenge page
 - [table-tennis.html](deeplearning.ai/build-with-andrew/table-tennis.html): browser game (you vs computer)
 
-### 3) Generative AI concepts and applications
+### 3) Claude Code — agentic coding assistant
+Go to [deeplearning.ai/claude-code/README.md](deeplearning.ai/claude-code/README.md)
+
+Key sections:
+- `### Agentic behavior` for the observe → plan → act loop
+- `### Permission model` for how Claude Code handles risky actions
+- `## CLAUDE.md — project-level instructions` for encoding project context
+- `## Hooks — automated behaviors` for event-driven shell commands
+- `## Slash commands (skills)` for built-in and custom shortcuts
+- `## Agentic coding best practices` for task framing and iteration tips
+- `## Comparison with other AI coding tools` for tool landscape overview
+- `## Models` for Claude model tiers and when each is used
+
+### 4) Generative AI concepts and applications
 Go to [deeplearning.ai/generative-ai-for-everyone/README.md](deeplearning.ai/generative-ai-for-everyone/README.md)
 
 Key sections:
@@ -52,8 +67,10 @@ Key sections:
 2. Read `generative-ai-for-everyone/README.md` to connect traditional AI concepts to modern LLM and generative AI systems.
 3. Focus on `## Building AI Project`, infrastructure sections, and the generative AI project lifecycle for practical decision-making.
 4. Open the HTML projects in `build-with-andrew/` to practice implementation and UI ideas.
+5. Read `claude-code/README.md` to understand how to work effectively with an agentic AI coding assistant.
 
 ## Quick start
 - Theory notes: open `deeplearning.ai/ai-for-everyone/README.md`
 - Generative AI notes: open `deeplearning.ai/generative-ai-for-everyone/README.md`
+- Claude Code notes: open `deeplearning.ai/claude-code/README.md`
 - Projects: open any `.html` file in `deeplearning.ai/build-with-andrew/` in your browser
